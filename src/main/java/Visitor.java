@@ -19,6 +19,7 @@ public class Visitor {
     private String data;
 
     Logger logger = LogManager.getLogger(Visitor.class);
+    public Visitor(){};
     public  Visitor(String name, int age, String date, String time, String comments, String assistor ){
         this.fullName = name;
         this.age = age;
@@ -47,6 +48,6 @@ public class Visitor {
         return visitorData.exists();
     }
 
-    
+
 
 }

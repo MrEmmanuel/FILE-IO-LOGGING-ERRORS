@@ -3,10 +3,11 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class VisitorTest {
-
 
     @Test
     void saveTest() throws IOException {
@@ -18,7 +19,12 @@ public class VisitorTest {
                 dateTimeFormatterTime.format(time),"It was nice meeting you", "Oreneile Sejeso");
         assertTrue(saveVisitor.save(),"File should be created successful and data be saved");
 
+    }
 
+    @Test
+    void saveEmpty(){
+        Visitor testPathExist = new Visitor();
+        assertThrows(IOException.class, testPathExist::save,"The file cannot be created with an empty name");
     }
 
 }
