@@ -1,7 +1,9 @@
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -48,6 +50,14 @@ public class Visitor {
         return visitorData.exists();
     }
 
-
-
+    public boolean load(String full_name) throws IOException {
+        String retrieve = full_name.replaceAll(" ", "_").toLowerCase();
+        BufferedReader file = new BufferedReader(new FileReader("visitor_"+ retrieve +".txt"));
+        String line;
+        while ((line = file.readLine()) !=null){
+            System.out.println(line);
+        }
+        logger.info("\nRead was successful.");
+        return true;
+    }
 }

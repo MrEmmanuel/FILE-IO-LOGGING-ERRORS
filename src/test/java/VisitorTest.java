@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -25,6 +26,18 @@ public class VisitorTest {
     void saveEmpty(){
         Visitor testPathExist = new Visitor();
         assertThrows(IOException.class, testPathExist::save,"The file cannot be created with an empty name");
+    }
+
+    @Test
+    void load() throws IOException {
+        Visitor fetch = new Visitor();
+        assertTrue(fetch.load("Alice Cooper"),"Before you test make sure visitor_alice_cooper.txt exit in the root directory");
+    }
+
+    @Test
+    void loadFailing(){
+        Visitor testFile = new Visitor();
+        assertThrows(FileNotFoundException.class, () -> testFile.load("Oreneile Sejeso"), "Should throw since file not found");
     }
 
 }
