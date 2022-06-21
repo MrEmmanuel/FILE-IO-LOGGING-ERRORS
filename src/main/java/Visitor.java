@@ -17,8 +17,8 @@ public class Visitor {
     private String timeOfVisit;
     private String comments;
     private String nameOfAssistor;
-    private String fileName = "";
-    private String data;
+    private String fileName = " ";
+    private String data = " ";
 
     Logger logger = LogManager.getLogger(Visitor.class);
     public Visitor(){};
@@ -29,6 +29,7 @@ public class Visitor {
         this.timeOfVisit = time;
         this.comments = comments;
         this.nameOfAssistor = assistor;
+        this.fileName = "visitor_"+ fullName.replaceAll(" ", "_").toLowerCase() + ".txt";
     }
 
     public boolean save() throws IOException{

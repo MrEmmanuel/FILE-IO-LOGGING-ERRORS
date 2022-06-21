@@ -16,8 +16,8 @@ public class VisitorTest {
         LocalDateTime date = LocalDateTime.now();
         DateTimeFormatter dateTimeFormatterTime = DateTimeFormatter.ofPattern( "hh:mm");
         LocalDateTime time = LocalDateTime.now();
-        Visitor saveVisitor = new Visitor("Sadio Mane", 35, dateTimeFormatterMonth.format(date),
-                dateTimeFormatterTime.format(time),"It was nice meeting you", "Oreneile Sejeso");
+        Visitor saveVisitor = new Visitor("Oreneile Sejeso", 35, dateTimeFormatterMonth.format(date),
+                dateTimeFormatterTime.format(time),"It was nice meeting you", "Emmanuel Sejeso");
         assertTrue(saveVisitor.save(),"File should be created successful and data be saved");
 
     }
@@ -37,7 +37,7 @@ public class VisitorTest {
     @Test
     void loadFailing(){
         Visitor testFile = new Visitor();
-        assertThrows(FileNotFoundException.class, () -> testFile.load("Oreneile Sejeso"), "Should throw since file not found");
+        assertThrows(FileNotFoundException.class, () -> testFile.load("Tebogo Sejeso"), "Should throw since file not found");
     }
 
 }
