@@ -21,7 +21,6 @@ public class Visitor {
     private String data = " ";
 
     Logger logger = LogManager.getLogger(Visitor.class);
-    public Visitor(){};
     public  Visitor(String name, int age, String date, String time, String comments, String assistor ){
         this.fullName = name;
         this.age = age;
@@ -29,10 +28,10 @@ public class Visitor {
         this.timeOfVisit = time;
         this.comments = comments;
         this.nameOfAssistor = assistor;
-        this.fileName = "visitor_"+ fullName.replaceAll(" ", "_").toLowerCase() + ".txt";
     }
 
     public boolean save() throws IOException{
+        this.fileName = "visitor_"+ fullName.replaceAll(" ", "_").toLowerCase() + ".txt";
         File visitorData = new File(fileName);
         if(fileName.equals("visitor_.txt")){
             throw new IOException("File needs a name");
@@ -59,6 +58,25 @@ public class Visitor {
             System.out.println(line);
         }
         logger.info("\nRead was successful.");
+        file.close();
         return true;
+    }
+    public String getFullName(){
+        return this.fullName;
+    }
+    public int getAge(){
+        return this.age;
+    }
+    public String getDate(){
+        return this.dateOfVisit;
+    }
+    public String getTime(){
+        return this.timeOfVisit;
+    }
+    public String getComments(){
+        return this.comments;
+    }
+    public String getAssistor(){
+        return this.nameOfAssistor;
     }
 }
