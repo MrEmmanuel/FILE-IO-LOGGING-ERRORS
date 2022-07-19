@@ -30,24 +30,28 @@ public class Visitor {
         this.nameOfAssistor = assistor;
     }
 
-    public boolean save() throws IOException{
+    public boolean save() {
         this.fileName = "visitor_"+ fullName.replaceAll(" ", "_").toLowerCase() + ".txt";
         File visitorData = new File(fileName);
-        if(fileName.equals("visitor_.txt")){
-            throw new IOException("File needs a name");
-        }
+        try {
+            if (fileName.equals("visitor_.txt")) {
+                throw new IOException("File needs a name");
+            }
 
-        if (visitorData.createNewFile()) {
-            data += fullName + " Age: " + age + " | Date: " + dateOfVisit +
-                    " | Time: " + timeOfVisit + " | comment: " + comments + " | Assisted by : " + nameOfAssistor;
-            logger.info("\nFile created: " + visitorData.getName());
+            if (visitorData.createNewFile()) {
+                data += fullName + " Age: " + age + " | Date: " + dateOfVisit +
+                        " | Time: " + timeOfVisit + " | comment: " + comments + " | Assisted by : " + nameOfAssistor;
+                logger.info("\nFile created: " + visitorData.getName());
+            } else {
+                data += "\n Date: " + dateOfVisit + " | Time: " + timeOfVisit + " | comment: " + comments + " | Assisted by : " + nameOfAssistor;
+                logger.info("\nFile already exist and new information was added");
+
+            }
+            Files.write(Paths.get(fileName), data.getBytes(), StandardOpenOption.APPEND);
+            return visitorData.exists();
+        } catch (IOException e) {
+            return false;
         }
-        else {
-            data += "\n Date: "+ dateOfVisit + " | Time: "+ timeOfVisit +" | comment: "+ comments + " | Assisted by : "+ nameOfAssistor;
-            logger.info("\nFile already exist and new information was added");
-        }
-        Files.write(Paths.get(fileName), data.getBytes(), StandardOpenOption.APPEND);
-        return visitorData.exists();
     }
 
     public boolean load(String full_name) throws IOException {
