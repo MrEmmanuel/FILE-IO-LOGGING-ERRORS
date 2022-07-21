@@ -3,7 +3,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -34,7 +33,7 @@ public class VisitorTest {
         time = LocalDateTime.now();
         visitor = new Visitor("Cassper Nyovest", 38, dateTimeFormatterMonth.format(date),
                 dateTimeFormatterTime.format(time),"It was great meeting you", "AKA Forbes");
-        assertThrows(FileNotFoundException.class, () -> visitor.load("Cassper Nyovest"), "The visitor can't be loaded because file was not saved");
+        assertThrows(FileNotFoundException.class, () -> Visitor.load("Cassper Nyovest"), "The visitor can't be loaded because file was not saved");
     }
 
     @Test
@@ -48,7 +47,7 @@ public class VisitorTest {
                 timeCaptured,"It was nice meeting you", "Monate Mpolaye");
 
             visitor.save();
-            assertAll( ()-> assertTrue(visitor.load("Paul Pogba")),
+            assertAll( ()-> assertTrue(Visitor.load("Paul Pogba")),
                     () -> assertEquals(visitor.getFullName().compareTo("Paul Pogba"), 0),
                     () ->assertEquals(29,visitor.getAge()),
                     () -> assertEquals(visitor.getDate().compareTo(dateCaptured), 0),
@@ -66,6 +65,6 @@ public class VisitorTest {
         time = LocalDateTime.now();
         visitor = new Visitor("Sadio Mane", 25,  dateTimeFormatterMonth.format(date),
                 dateTimeFormatterTime.format(time), "It was nice meeting you", "Monate Mpolaye" );
-        assertThrows(FileNotFoundException.class, () -> visitor.load("Sadio Mane"), "Should throw IO exception since file not found");
+        assertThrows(FileNotFoundException.class, () -> Visitor.load("Sadio Mane"), "Should throw IO exception since file not found");
     }
 }
