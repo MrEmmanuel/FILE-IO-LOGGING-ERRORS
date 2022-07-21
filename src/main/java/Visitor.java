@@ -1,10 +1,7 @@
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -20,7 +17,7 @@ public class Visitor {
     private String fileName = " ";
     private String data = " ";
 
-    Logger logger = LogManager.getLogger(Visitor.class);
+    static Logger logger = LogManager.getLogger(Visitor.class);
     public  Visitor(String name, int age, String date, String time, String comments, String assistor ){
         this.fullName = name;
         this.age = age;
@@ -50,20 +47,26 @@ public class Visitor {
             Files.write(Paths.get(fileName), data.getBytes(), StandardOpenOption.APPEND);
             return visitorData.exists();
         } catch (IOException e) {
+            logger.info(e.toString());
             return false;
         }
     }
 
-    public boolean load(String full_name) throws IOException {
-        String retrieve = full_name.replaceAll(" ", "_").toLowerCase();
-        BufferedReader file = new BufferedReader(new FileReader("visitor_"+ retrieve +".txt"));
-        String line;
-        while ((line = file.readLine()) !=null){
-            System.out.println(line);
+    public static boolean load(String full_name) throws FileNotFoundException {
+        try {
+            String retrieve = full_name.replaceAll(" ", "_").toLowerCase();
+            BufferedReader file = new BufferedReader(new FileReader("visitor_" + retrieve + ".txt"));
+            String line;
+            while ((line = file.readLine()) != null) {
+                System.out.println(line);
+            }
+            logger.info("\nRead was successful.");
+            file.close();
+            return true;
+        } catch (IOException e) {
+            logger.info(e.toString());
+            throw new FileNotFoundException();
         }
-        logger.info("\nRead was successful.");
-        file.close();
-        return true;
     }
     public String getFullName(){
         return this.fullName;
